@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  auction:
+    image: ${DOCKER_REGISTRY-}auction
+    build:
+      context: .
+      dockerfile: Dockerfile
