@@ -8,11 +8,13 @@ namespace Auction.Business.Services.ItemLots
 {
     public interface IItemLotService
     {
-        public Task<List<ItemLot>> GetAllItems();
+        public Task<IReadOnlyCollection<ItemLot>> GetAllItems();
+        public Task<IReadOnlyCollection<ItemLot>> GetAllUserItems(string email);
 
         public Task<ItemLot> GetItemById(Guid id);
 
-        Task<ItemLot> CreateItem(UpdateItemCommand command);
+        Task<ItemLot> CreateItem(CreateItemCommand command);
+        Task<ItemLot> UpdateItem(UpdateItemCommand command);
 
         Task DeleteItem(Guid itemId);
     }

@@ -22,3 +22,6 @@ D:\AuctionProject\Auction\Auction.Domain\obj\Debug\net5.0\Auction.Domain.csproj.
 D:\AuctionProject\Auction\Auction.Domain\obj\Debug\net5.0\Auction.Domain.dll
 D:\AuctionProject\Auction\Auction.Domain\obj\Debug\net5.0\ref\Auction.Domain.dll
 D:\AuctionProject\Auction\Auction.Domain\obj\Debug\net5.0\Auction.Domain.pdb
+D:\AuctionProject\Auction.Domain\bin\Debug\net5.0\Auction.Domain.runtimeconfig.json
+D:\AuctionProject\Auction.Domain\bin\Debug\net5.0\Auction.Domain.runtimeconfig.dev.json
+D:\AuctionProject\Auction.Domain\obj\Debug\net5.0\Auction.Domain.genruntimeconfig.cache

@@ -19,9 +19,14 @@ namespace Auction.Business.Services.ItemLots
             _itemLotRemover = itemLotRemover;
         }
 
-        public Task<List<ItemLot>> GetAllItems()
+        public Task<IReadOnlyCollection<ItemLot>> GetAllItems()
         {
             return _itemLotFetcher.GetAllItems();
+        }
+
+        public Task<IReadOnlyCollection<ItemLot>> GetAllUserItems(string email)
+        {
+            return _itemLotFetcher.GetAllUserItems(email);
         }
 
         public Task<ItemLot> GetItemById(Guid id)
@@ -29,7 +34,12 @@ namespace Auction.Business.Services.ItemLots
             return _itemLotFetcher.GetItemById(id);
         }
 
-        public Task<ItemLot> CreateItem(UpdateItemCommand command)
+        public Task<ItemLot> CreateItem(CreateItemCommand command)
+        {
+            return _itemLotUpdater.Create(command);
+        }
+
+        public Task<ItemLot> UpdateItem(UpdateItemCommand command)
         {
             return _itemLotUpdater.Update(command);
         }
@@ -38,5 +48,7 @@ namespace Auction.Business.Services.ItemLots
         {
             return _itemLotRemover.Delete(itemId);
         }
+
+
     }
 }

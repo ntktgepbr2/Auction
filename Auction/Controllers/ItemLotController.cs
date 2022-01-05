@@ -7,48 +7,84 @@ using Auction.Business.Services.ItemLots;
 using Auction.Contracts.Items;
 using Auction.Domain.Models;
 using Auction.Extensions;
+using Auction.Business.Services.Users;
+using Microsoft.AspNetCore.Authorization;
+using Newtonsoft.Json;
 
 namespace Auction.Controllers
 {
-    [ApiExplorerSettings(GroupName = "v1")]
-    [Route("api/v1/itemLot")]
+    [Authorize(Roles = "admin, user")]
+    [Route("[controller]/[action]")]
     public class ItemLotController : Controller
     {
         private readonly IItemLotService _itemLotService;
+        private readonly IUserService _userService;
 
-        public ItemLotController(IItemLotService itemLotService)
+        public ItemLotController(IItemLotService itemLotService, IUserService userService)
         {
             _itemLotService = itemLotService;
+            _userService = userService;
         }
 
         [HttpGet()]
-        public async Task<List<ItemLot>> GetAllItemsAsync()
+        public async Task<ActionResult<IReadOnlyCollection<ItemLot>>> GetAllItemsAsync()
         {
-            return await _itemLotService.GetAllItems();
+            var allItems = await _itemLotService.GetAllItems();
+            TempData["allItems"] = allItems.ToDto();
+
+            return RedirectToAction("Index", "Home");   
         }
-        
-        [HttpGet("{id}")]
-        public async Task<ItemLot> GetItemByIdAsync(Guid id)
+
+        [HttpGet()]
+        public async Task<ActionResult<List<ItemDto>>> GetAllUserItemsAsync()
         {
-            return await _itemLotService.GetItemById(id);
+            var userEmail = HttpContext.User.Identity.Name;
+
+            var result = await _itemLotService.GetAllUserItems(userEmail);
+            var itemDto = result.ToDto();
+            //TempData["Items"] = itemDto;
+            //TempData.Keep();
+
+            return View(itemDto);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetItemByIdAsync(Guid id)
+        {
+            var result = await _itemLotService.GetItemById(id);
+
+            return View(result.ToDto());
+        }
+
+        [HttpGet()]
+        public  IActionResult CreateItemAsync()
+        {
+            return View();
         }
 
         [HttpPost()]
-        public async Task<ActionResult<ItemDto>>  CreateItemAsync([FromBody][Required]CreateItemRequest request)
+        public async Task<ActionResult<ItemDto>>  CreateItemAsync(CreateItemRequest request)
         {
+            var userEmail = HttpContext.User.Identity.Name; 
 
-            var result = await _itemLotService.CreateItem(request.ToCommand());
+            var result = await _itemLotService.CreateItem(request.ToCommand(userEmail));
             var resultDto = result.ToDto();
 
             return CreatedAtAction(nameof(GetItemByIdAsync), new {id = resultDto.Id}, resultDto);
         }
 
-        [HttpPut("{id}")]
-        public async Task<ActionResult<ItemDto>> UpdateItemAsync([FromBody][Required] UpdateItemRequest request)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<ItemDto>> GetItemToUpdateAsync(Guid Id)
         {
-            var result = await _itemLotService.CreateItem(request.ToCommand());
+            return View((await _itemLotService.GetItemById(Id)).ToDto());
+        }
 
-            return result.ToDto();
+        [HttpPost]
+        public async Task<ActionResult<ItemDto>> UpdateItemAsync(UpdateItemRequest request)
+        {
+            var result = await _itemLotService.UpdateItem(request.ToCommand());
+
+            return RedirectToAction("GetAllUserItemsAsync");
         }
 
         [HttpDelete("{id}")]

@@ -7,7 +7,8 @@ namespace Auction.Business.Services.ItemLots
 {
     public interface IItemLotFetcher
     {
-        public Task<List<ItemLot>> GetAllItems();
+        public Task<IReadOnlyCollection<ItemLot>> GetAllItems();
+        public Task<IReadOnlyCollection<ItemLot>> GetAllUserItems(string email);
         public Task<ItemLot> GetItemById(Guid id);
     }
 }

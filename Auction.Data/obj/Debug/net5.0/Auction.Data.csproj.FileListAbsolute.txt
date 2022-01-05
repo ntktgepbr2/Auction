@@ -28,3 +28,6 @@ D:\AuctionProject\Auction\Auction.Data\obj\Debug\net5.0\Auction.Data.csproj.Copy
 D:\AuctionProject\Auction\Auction.Data\obj\Debug\net5.0\Auction.Data.dll
 D:\AuctionProject\Auction\Auction.Data\obj\Debug\net5.0\ref\Auction.Data.dll
 D:\AuctionProject\Auction\Auction.Data\obj\Debug\net5.0\Auction.Data.pdb
+D:\AuctionProject\Auction.Data\bin\Debug\net5.0\Auction.Data.runtimeconfig.json
+D:\AuctionProject\Auction.Data\bin\Debug\net5.0\Auction.Data.runtimeconfig.dev.json
+D:\AuctionProject\Auction.Data\obj\Debug\net5.0\Auction.Data.genruntimeconfig.cache

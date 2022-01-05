@@ -1,12 +1,17 @@
-﻿using System.Linq;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Auction.Data.Repositories
 {
-    public interface IRepositoryBase<TEntity> where TEntity : class, new()
+    public interface IRepositoryBase<TEntity> where TEntity : class
     {
-        IQueryable<TEntity> GetAll();
-        Task<TEntity> AddAsync(TEntity entity);
-        Task<TEntity> UpdateAsync(TEntity entity);
+        //Task<IReadOnlyCollection<TEntity>> GetAll(TEntity entity);
+        Task<IReadOnlyCollection<TEntity>> GetAllByName(string name);
+        Task<IReadOnlyCollection<TEntity>> GetAll();
+        Task<TEntity> GetEntity(Guid id);
+        Task AddAsync(TEntity entity);
+        Task UpdateAsync(TEntity entity);
+        Task DeleteAsync(Guid id);
     }
 }

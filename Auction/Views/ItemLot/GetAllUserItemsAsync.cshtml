@@ -1,0 +1,31 @@
+﻿@model List<Auction.Contracts.Items.ItemDto>
+
+@{
+    ViewData["Title"] = "GetAllUserItemsAsync";
+}
+
+
+<div class="container">
+    <h1 class="h1-align-center">All your lots</h1>
+    <div class="row">
+        @foreach (var item in @Model)
+        {
+
+            <div class="col-sm-3">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <div class="card-img-top"></div>
+                        <h4 class="card-title">@item.Name</h4>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-text"><b>Started price:</b> @item.StartedPrice</p>
+                        <p class="card-text"><b>Current Price:</b> @item.CurrentPrice</p>
+                        <div>
+                            <a asp-action="GetItemToUpdateAsync" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-controller="Home" asp-action="Index">Back to List</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>

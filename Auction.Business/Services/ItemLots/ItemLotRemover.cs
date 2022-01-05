@@ -6,15 +6,15 @@ namespace Auction.Business.Services.ItemLots
 {
     public class ItemLotRemover : IItemLotRemover
     {
-        private readonly IItemLotRepository _itemLotRepository;
+        private readonly IItemRepository _itemRepository;
 
-        public ItemLotRemover(IItemLotRepository itemLotRepository)
+        public ItemLotRemover(IItemRepository itemRepository)
         {
-            _itemLotRepository = itemLotRepository;
+            _itemRepository = itemRepository;
         }
         public async Task Delete(Guid itemId)
         {
-            await _itemLotRepository.DeleteItemAsync(itemId);
+            await _itemRepository.DeleteAsync(itemId);
         }
     }
 }
