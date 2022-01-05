@@ -1,0 +1,31 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a42e8961-4d16-4691-9548-7d2e98b926d1": {
+      "ProjectGuid": "a42e8961-4d16-4691-9548-7d2e98b926d1",
+      "DisplayName": "Auction",
+      "ColorIndex": 0
+    },
+    "accf54d0-0889-4e77-8d27-8b6696cf0a6b": {
+      "ProjectGuid": "accf54d0-0889-4e77-8d27-8b6696cf0a6b",
+      "DisplayName": "Auction.Data",
+      "ColorIndex": 1
+    },
+    "822c1d4f-61bd-4be9-9c65-48990fecd40d": {
+      "ProjectGuid": "822c1d4f-61bd-4be9-9c65-48990fecd40d",
+      "DisplayName": "Auction.Domain",
+      "ColorIndex": 2
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "Miscellaneous Files",
+      "ColorIndex": -1
+    },
+    "4b9f659b-bb0a-4777-b47e-7f7669897073": {
+      "ProjectGuid": "4b9f659b-bb0a-4777-b47e-7f7669897073",
+      "DisplayName": "Auction.Business",
+      "ColorIndex": 3
+    }
+  },
+  "NextColorIndex": 4
+}

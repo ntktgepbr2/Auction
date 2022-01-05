@@ -9,22 +9,27 @@ namespace Auction.Business.Services.ItemLots
 {
     public class ItemLotFetcher : IItemLotFetcher
     {
-        private readonly IItemLotRepository _itemLotRepository;
+        private readonly IItemRepository _itemRepository;
 
-        public ItemLotFetcher(IItemLotRepository itemLotRepository)
+        public ItemLotFetcher(IItemRepository itemRepository)
         {
-            _itemLotRepository = itemLotRepository;
+            _itemRepository = itemRepository;
         }
 
 
-        public Task<List<ItemLot>> GetAllItems()
+        public Task<IReadOnlyCollection<ItemLot>> GetAllItems()
         {
-            return _itemLotRepository.GetItemsAsync();
+            return _itemRepository.GetAll();
+        }
+
+        public Task<IReadOnlyCollection<ItemLot>> GetAllUserItems(string email)
+        {
+            return _itemRepository.GetAllUserLots(email);
         }
 
         public Task<ItemLot> GetItemById(Guid id)
         {
-            var result = _itemLotRepository.GetItemByIdAsync(id);
+            var result = _itemRepository.GetEntity(id);
 
             return result ?? throw new EntityNotFoundException("Item not found");
         }

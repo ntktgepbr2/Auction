@@ -32,3 +32,6 @@ D:\AuctionProject\Auction\Auction.Business\obj\Debug\net5.0\Auction.Business.csp
 D:\AuctionProject\Auction\Auction.Business\obj\Debug\net5.0\Auction.Business.dll
 D:\AuctionProject\Auction\Auction.Business\obj\Debug\net5.0\ref\Auction.Business.dll
 D:\AuctionProject\Auction\Auction.Business\obj\Debug\net5.0\Auction.Business.pdb
+D:\AuctionProject\Auction.Business\bin\Debug\net5.0\Auction.Business.runtimeconfig.json
+D:\AuctionProject\Auction.Business\bin\Debug\net5.0\Auction.Business.runtimeconfig.dev.json
+D:\AuctionProject\Auction.Business\obj\Debug\net5.0\Auction.Business.genruntimeconfig.cache

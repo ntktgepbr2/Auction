@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Auction.Business.Contracts.Items;
+using Auction.Business.Services.Users;
 using Auction.Data.Repositories;
 using Auction.Domain.Models;
 
@@ -9,36 +10,37 @@ namespace Auction.Business.Services.ItemLots
     public class ItemLotUpdater : IItemLotUpdater
     {
 
-        private readonly IItemLotRepository _itemLotRepository;
+        private readonly IItemRepository _itemRepository;
+        private readonly IUserService _userService;
 
-        public ItemLotUpdater(IItemLotRepository itemLotRepository)
+        public ItemLotUpdater(IItemRepository itemRepository, IUserService userService)
         {
-            _itemLotRepository = itemLotRepository;
+            _itemRepository = itemRepository;
+            _userService = userService;
+        }
+
+        public async Task<ItemLot> Create(CreateItemCommand command)
+        {
+            var item = new ItemLot()
+            {
+                Id = Guid.NewGuid(),
+                Name = command.Name,
+                Description = command.Description,
+                StartedPrice = command.StartedPrice,
+                CurrentPrice = command.CurrentPrice,
+                CreatedDate = DateTimeOffset.UtcNow,
+                User = await _userService.GetUserByEmail(command.Email),
+            };
+            await _itemRepository.AddAsync(item);
+
+            return item;
         }
 
         public async Task<ItemLot> Update(UpdateItemCommand command)
         {
-            ItemLot item;
-
-            if (command.IsCreation)
-            {
-                 item = new ItemLot()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = command.Name,
-                    Description = command.Description,
-                    StartedPrice = command.StartedPrice,
-                    CurrentPrice = command.CurrentPrice,
-                    CreatedDate = DateTimeOffset.UtcNow,
-                };
-                await _itemLotRepository.CreateItemAsync(item);
-
-                return item;
-            }
-
-            item = await _itemLotRepository.GetItemByIdAsync(command.Id);
+            var item = await _itemRepository.GetEntity(command.Id);
             UpdateEntity(item, command);
-            await _itemLotRepository.UpdateItemAsync(item);
+            await _itemRepository.UpdateAsync(item);
 
             return item;
         }

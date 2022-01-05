@@ -1,7 +1,11 @@
-﻿namespace Auction.Data.Repositories
+﻿using Auction.Domain.Models;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace Auction.Data.Repositories
 {
-    public interface IItemRepository
+    public interface IItemRepository : IRepositoryBase<ItemLot>
     {
-        
+        Task<IReadOnlyCollection<ItemLot>> GetAllUserLots(string email);
     }
 }

@@ -11,7 +11,6 @@
 using System;
 using System.Reflection;
 
-[assembly: Microsoft.AspNetCore.Identity.UI.UIFrameworkAttribute("Bootstrap4")]
 [assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("aspnet-Auction-45605F79-AD8B-439D-94DE-6F63CD3FB135")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Auction")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]

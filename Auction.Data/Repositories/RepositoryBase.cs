@@ -1,11 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Auction.Data.DatabaseContext;
+using Auction.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Auction.Data.Repositories
 {
-    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : class
+    public abstract class RepositoryBase<TEntity> : IRepositoryBase<TEntity> where TEntity : DomainEntity
     {
         private readonly AuctionDbContext _context;
 
@@ -14,11 +17,25 @@ namespace Auction.Data.Repositories
             _context = context;
         }
 
-        public IQueryable<TEntity> GetAll()
+        //public async Task<IReadOnlyCollection<TEntity>> GetAll(TEntity entity)
+        //{
+        //    try
+        //    {
+        //        var query = this.All.Where(x => x.Name.Contains(entity.Name, StringComparison.CurrentCultureIgnoreCase));
+        //        return await query.ToArrayAsync();
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw new Exception($"Couldn't retrieve entities: {ex.Message}");
+        //    }
+        //}
+
+        public async Task<IReadOnlyCollection<TEntity>> GetAllByName(string name)
         {
             try
             {
-                return _context.Set<TEntity>();
+                var query = this.All.Where(x => x.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase));
+                return await query.ToArrayAsync();
             }
             catch (Exception ex)
             {
@@ -26,7 +43,29 @@ namespace Auction.Data.Repositories
             }
         }
 
-        public async Task<TEntity> AddAsync(TEntity entity)
+        public async Task<IReadOnlyCollection<TEntity>> GetAll()
+        {
+            try
+            {
+                return await this.All.ToListAsync();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
+            }
+        }
+
+        public async Task<TEntity> GetEntity(Guid id)
+        {
+            return await _context.FindAsync<TEntity>(id);
+        }
+
+        /// <summary>
+        /// Gets All entities.
+        /// </summary>
+        protected virtual IQueryable<TEntity> All => _context.Set<TEntity>().AsQueryable();
+
+        public async Task AddAsync(TEntity entity)
         {
             if (entity == null)
             {
@@ -38,7 +77,6 @@ namespace Auction.Data.Repositories
                 await _context.AddAsync(entity);
                 await _context.SaveChangesAsync();
 
-                return entity;
             }
             catch (Exception ex)
             {
@@ -46,7 +84,7 @@ namespace Auction.Data.Repositories
             }
         }
 
-        public async Task<TEntity> UpdateAsync(TEntity entity)
+        public async Task UpdateAsync(TEntity entity)
         {
             if (entity == null)
             {
@@ -58,7 +96,6 @@ namespace Auction.Data.Repositories
                 _context.Update(entity);
                 await _context.SaveChangesAsync();
 
-                return entity;
             }
             catch (Exception ex)
             {
@@ -66,9 +103,11 @@ namespace Auction.Data.Repositories
             }
         }
 
-        public Task<TEntity> DeleteAsync(TEntity entity)
+        public async Task DeleteAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var getEntity = await GetEntity(id);
+
+            _context.Remove(getEntity);
         }
     }
 }

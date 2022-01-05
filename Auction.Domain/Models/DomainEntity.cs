@@ -1,7 +1,10 @@
-﻿namespace Auction.Domain.Models
+﻿using System;
+
+namespace Auction.Domain.Models
 {
-    public class DomainEntity
+    public abstract record DomainEntity
     {
-        
+        public Guid Id { get; set; }
+        public string Name { get; set; }
     }
 }

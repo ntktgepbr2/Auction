@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Auction.Domain.Models;
 
 namespace Auction.Contracts.Items
 {
@@ -12,5 +13,6 @@ namespace Auction.Contracts.Items
         public decimal StartedPrice { get; init; }
 
         public decimal CurrentPrice { get; set; }
+        public User User { get; set; }
     }
 }
