@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Security.Claims;
-using Auction.Contracts.Items;
+﻿using System.Threading.Tasks;
+using Auction.Business.Services.ItemLots;
+using Auction.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,12 +8,19 @@ namespace Auction.Controllers
 {
     public class HomeController : Controller
     {
-        [Authorize(Roles = "admin, user")]
-        public IActionResult Index()
-        {
-            List<ItemDto> allItems = (List<ItemDto>)TempData["allItems"];
+        private readonly IItemLotService _itemLotService;
 
-            return View(allItems);
+        public HomeController(IItemLotService itemLotService)
+        {
+            _itemLotService = itemLotService;
+        }
+
+        [Authorize(Roles = "admin, user")]
+        public async Task<IActionResult> Index()
+        {
+            var allItems = await _itemLotService.GetAllItems();
+
+            return View(allItems.ToDto());
         }
         [Authorize(Roles = "admin")]
         public IActionResult About()

@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
+using Auction.Business.Exceptions;
 using Auction.Business.Services.ItemLots;
 using Auction.Contracts.Items;
 using Auction.Domain.Models;
 using Auction.Extensions;
 using Auction.Business.Services.Users;
 using Microsoft.AspNetCore.Authorization;
-using Newtonsoft.Json;
 
 namespace Auction.Controllers
 {

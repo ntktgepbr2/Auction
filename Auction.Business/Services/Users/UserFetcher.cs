@@ -17,28 +17,28 @@ namespace Auction.Business.Services.Users
         }
 
 
-        public Task<IReadOnlyCollection<User>> GetAllUsers()
+        public async Task<IReadOnlyCollection<User>> GetAllUsers()
         {
-            return _userRepository.GetAll();
+            return await _userRepository.GetAll();
         }
 
-        public Task<User> GetUserById(Guid id)
+        public async Task<User> GetUserById(Guid id)
         {
-            var result = _userRepository.GetEntity(id);
+            var result = await _userRepository.GetEntity(id);
 
             return result ?? throw new EntityNotFoundException("User not found");
         }
 
-        public Task<User> GetUserByEmail(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
-            var result = _userRepository.GetUserByEmail(email);
+            var result = await _userRepository.GetUserByEmail(email);
 
             return result ?? throw new EntityNotFoundException("User not found");
         }
 
-        public Task<User> GetUserForLogin(string name, string password)
+        public async Task<User> GetUserForLogin(string name, string password)
         {
-            var result = _userRepository.GetUserForLogin(name, password);
+            var result = await _userRepository.GetUserForLogin(name, password);
 
             return result;
         }

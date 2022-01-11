@@ -19,34 +19,34 @@ namespace Auction.Business.Services.Users
             _userRemover = userRemover;
         }
 
-        public Task<IReadOnlyCollection<User>> GetAllUsers()
+        public async Task<IReadOnlyCollection<User>> GetAllUsers()
         {
-            return _userFetcher.GetAllUsers();
+            return await _userFetcher.GetAllUsers();
         }
 
-        public Task<User> GetUserById(Guid id)
+        public async Task<User> GetUserById(Guid id)
         {
-            return _userFetcher.GetUserById(id);
+            return await _userFetcher.GetUserById(id);
         }
 
-        public Task<User> GetUserByEmail(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
-            return _userFetcher.GetUserByEmail(email);
+            return await _userFetcher.GetUserByEmail(email);
         }
 
-        public Task<User> GetForLogin(string name, string password)
+        public async Task<User> GetForLogin(string name, string password)
         {
-            return _userFetcher.GetUserForLogin(name, password);
+            return await _userFetcher.GetUserForLogin(name, password);
         }
 
-        public Task<User> CreateUser(UpdateUserCommand command)
+        public async Task<User> CreateUser(UpdateUserCommand command)
         {
-            return _userUpdater.Update(command);
+            return await _userUpdater.Update(command);
         }
 
-        public Task DeleteUser(Guid userId)
+        public async Task DeleteUser(Guid userId)
         {
-            return _userRemover.Delete(userId);
+            await _userRemover.Delete(userId);
         }
     }
 }

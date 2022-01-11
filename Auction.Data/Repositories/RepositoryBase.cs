@@ -34,7 +34,7 @@ namespace Auction.Data.Repositories
         {
             try
             {
-                var query = this.All.Where(x => x.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase));
+                var query =  this.All.Where(x => x.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase));
                 return await query.ToArrayAsync();
             }
             catch (Exception ex)
@@ -83,6 +83,8 @@ namespace Auction.Data.Repositories
                 throw new Exception($"{nameof(entity)} could not be saved: {ex.Message}");
             }
         }
+
+        public async Task UpdateContext() => await _context.SaveChangesAsync();
 
         public async Task UpdateAsync(TEntity entity)
         {

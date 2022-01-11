@@ -44,6 +44,11 @@ namespace Auction.Business.Services.ItemLots
             return _itemLotUpdater.Update(command);
         }
 
+        public Task UpdateItemPrice(UpdateItemPriceCommand command)
+        {
+            return _itemLotUpdater.UpdateItemPrice(command);
+        }
+
         public Task DeleteItem(Guid itemId)
         {
             return _itemLotRemover.Delete(itemId);

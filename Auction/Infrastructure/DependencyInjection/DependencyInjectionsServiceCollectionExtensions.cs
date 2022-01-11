@@ -27,9 +27,9 @@ namespace Auction.Infrastructure.DependencyInjection
         public static void AddDataLayerDependencyInjections(this IServiceCollection services)
         {
             services
-                .AddSingleton<IItemRepository, ItemRepository>();
+                .AddScoped<IItemRepository, ItemRepository>();
             services
-                .AddSingleton<IUserRepository, UserRepository>();
+                .AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

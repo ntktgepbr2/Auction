@@ -26,5 +26,7 @@ namespace Auction.Data.Repositories
                 throw new Exception($"Couldn't retrieve entities: {ex.Message}");
             }
         }
+
+        public async Task UpdatePriceAsync() => await UpdateContext();
     }
 }

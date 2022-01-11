@@ -31,6 +31,7 @@ namespace Auction.Business.Services.ItemLots
                 CreatedDate = DateTimeOffset.UtcNow,
                 User = await _userService.GetUserByEmail(command.Email),
             };
+            item.LastUserBidId = item.User.Id;
             await _itemRepository.AddAsync(item);
 
             return item;
@@ -43,6 +44,20 @@ namespace Auction.Business.Services.ItemLots
             await _itemRepository.UpdateAsync(item);
 
             return item;
+        }
+
+        public async Task UpdateItemPrice(UpdateItemPriceCommand command)
+        {
+            var item = await _itemRepository.GetEntity(command.Id);
+            var user = await _userService.GetUserByEmail(command.UserEmail);
+
+            if (command.LastBid > item.CurrentPrice)
+            {
+                item.CurrentPrice = command.LastBid;
+                item.LastUserBidId = user.Id;
+                await _itemRepository.UpdatePriceAsync();
+            }
+
         }
 
         private static ItemLot UpdateEntity(ItemLot item, UpdateItemCommand command)
