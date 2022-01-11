@@ -25,7 +25,7 @@ namespace Auction.Data.DatabaseContext
 
             Role adminRole = new Role { Id = 1, Name = adminRoleName };
             Role userRole = new Role { Id = 2, Name = userRoleName };
-            User adminUser = new User { Id = Guid.NewGuid(), Name = adminEmail, Email = adminEmail, Password = adminPassword, RoleId = adminRole.Id };
+            User adminUser = new User { Id = Guid.NewGuid(), Name = adminEmail, Email = adminEmail, Password = adminPassword};
 
             modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
             //modelBuilder.Entity<User>().HasData(new User[] { adminUser });
@@ -52,12 +52,13 @@ namespace Auction.Data.DatabaseContext
             builder.Property(p => p.StartedPrice).IsRequired().HasColumnType("decimal(10,2)");
             builder.Property(p => p.CurrentPrice).HasColumnType("decimal(10,2)");
             builder.Property(p => p.Id).HasColumnType("uniqueidentifier");
+            builder.Property(p => p.LastUserBidId).HasColumnType("uniqueidentifier");
         }
         public void RoleConfigure(EntityTypeBuilder<Role> builder)
         {
   
             builder.ToTable("Role").Property(c => c.Name).IsRequired().HasMaxLength(30);
-            builder.HasMany(x => x.Users).WithOne(u => u.Role);
+            builder.HasMany(x => x.Users).WithMany(u => u.Roles).UsingEntity(join => join.ToTable("UserRole"));
             builder.Property(p => p.Id);
 
         }

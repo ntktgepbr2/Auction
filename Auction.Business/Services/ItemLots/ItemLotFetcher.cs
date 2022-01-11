@@ -17,19 +17,19 @@ namespace Auction.Business.Services.ItemLots
         }
 
 
-        public Task<IReadOnlyCollection<ItemLot>> GetAllItems()
+        public async Task<IReadOnlyCollection<ItemLot>> GetAllItems()
         {
-            return _itemRepository.GetAll();
+            return await _itemRepository.GetAll();
         }
 
-        public Task<IReadOnlyCollection<ItemLot>> GetAllUserItems(string email)
+        public async Task<IReadOnlyCollection<ItemLot>> GetAllUserItems(string email)
         {
-            return _itemRepository.GetAllUserLots(email);
+            return await _itemRepository.GetAllUserLots(email);
         }
 
-        public Task<ItemLot> GetItemById(Guid id)
+        public async Task<ItemLot> GetItemById(Guid id)
         {
-            var result = _itemRepository.GetEntity(id);
+            var result = await _itemRepository.GetEntity(id);
 
             return result ?? throw new EntityNotFoundException("Item not found");
         }

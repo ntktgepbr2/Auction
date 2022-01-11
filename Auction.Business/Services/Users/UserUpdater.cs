@@ -28,7 +28,6 @@ namespace Auction.Business.Services.Users
                     Name = command.Name,
                     Email = command.Email,
                     Password = command.Password,
-                    RoleId = 2,
                 };
                 await _userRepository.AddAsync(user);
 

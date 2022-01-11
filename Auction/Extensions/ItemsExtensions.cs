@@ -31,6 +31,16 @@ namespace Auction.Extensions
             };
         }
 
+        public static UpdateItemPriceCommand ToCommand(this BidItemRequest request, string userEmail)
+        {
+            return new()
+            {
+                Id = request.Id,
+                LastBid = request.LastBid,
+                UserEmail = userEmail,
+            };
+        }
+
         public static ItemDto ToDto(this ItemLot entity)
         {
             return new ()

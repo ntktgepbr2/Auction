@@ -34,6 +34,9 @@ namespace Auction.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid>("LastUserBidId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(30)
@@ -102,14 +105,24 @@ namespace Auction.Data.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.Property<int?>("RoleId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("RoleId");
-
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("RoleUser", b =>
+                {
+                    b.Property<int>("RolesId")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("UsersId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("RolesId", "UsersId");
+
+                    b.HasIndex("UsersId");
+
+                    b.ToTable("UserRole");
                 });
 
             modelBuilder.Entity("Auction.Domain.Models.ItemLot", b =>
@@ -121,18 +134,19 @@ namespace Auction.Data.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Auction.Domain.Models.User", b =>
+            modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.HasOne("Auction.Domain.Models.Role", "Role")
-                        .WithMany("Users")
-                        .HasForeignKey("RoleId");
+                    b.HasOne("Auction.Domain.Models.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RolesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("Role");
-                });
-
-            modelBuilder.Entity("Auction.Domain.Models.Role", b =>
-                {
-                    b.Navigation("Users");
+                    b.HasOne("Auction.Domain.Models.User", null)
+                        .WithMany()
+                        .HasForeignKey("UsersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Auction.Domain.Models.User", b =>

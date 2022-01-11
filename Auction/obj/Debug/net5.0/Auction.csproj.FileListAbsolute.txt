@@ -857,9 +857,11 @@ D:\AuctionProject\Auction\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Worksp
 D:\AuctionProject\Auction\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 D:\AuctionProject\Auction\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Home\About.cshtml.g.cs
-D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\ItemLot\CreateItemAsync.cshtml.g.cs
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\ItemLot\GetItemByIdAsync.cshtml.g.cs
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\ItemLot\GetAllUserItemsAsync.cshtml.g.cs
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\ItemLot\GetItemToUpdateAsync.cshtml.g.cs
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Account\Logout.cshtml.g.cs
+D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
+D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Bid\BidItemAsync.cshtml.g.cs
+D:\AuctionProject\Auction\bin\Debug\net5.0\libman.json

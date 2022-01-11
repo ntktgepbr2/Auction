@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -9,7 +10,7 @@ using Auction.Business.Services.Users;
 using Auction.Extensions;
 using Auction.Domain.Models;
 
-namespace AuthApp.Controllers
+namespace Auction.Controllers
 {
     public class AccountController : Controller
     {
@@ -34,7 +35,7 @@ namespace AuthApp.Controllers
                 var user = await _userService.GetForLogin(model.Email, model.Password);
                 if (user != null)
                 {
-                    await Authenticate(user); // аутентификация
+                    await Authenticate(user);
 
                     return RedirectToAction("Index", "Home");
                 }
@@ -71,18 +72,16 @@ namespace AuthApp.Controllers
 
         private async Task Authenticate(User user)
         {
-            // создаем один claim
-            var claims = new List<Claim>
+            var claims = new List<Claim>
 
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role?.Name)
+                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Roles?.First().Name),
             };
 
-            // создаем объект ClaimsIdentity
             ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
-            // установка аутентификационных куки
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
+
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }
 
         public async Task<IActionResult> Logout()

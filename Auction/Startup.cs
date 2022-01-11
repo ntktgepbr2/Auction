@@ -9,6 +9,7 @@ using Auction.Models;
 using Microsoft.OpenApi.Models;
 using Auction.Infrastructure.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Auction.Infrastructure.Hubs;
 
 namespace Auction
 {
@@ -26,8 +27,8 @@ namespace Auction
         {
             services.AddDbContext<AuctionDbContext>(options =>
                 options.EnableSensitiveDataLogging().UseSqlServer(Configuration.GetConnectionString("DefaultConnection")),
-                contextLifetime: ServiceLifetime.Transient,
-                optionsLifetime: ServiceLifetime.Singleton);
+                contextLifetime: ServiceLifetime.Scoped,
+                optionsLifetime: ServiceLifetime.Scoped);
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                     .AddCookie(options => //CookieAuthenticationOptions
@@ -37,7 +38,9 @@ namespace Auction
         });
 
             services.AddControllersWithViews(options => options.SuppressAsyncSuffixInActionNames = false);
-            services.AddMvc();  
+            services.AddSignalR(options=>options.ClientTimeoutInterval = System.TimeSpan.FromMinutes(5));
+            services.AddMvc();
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddSwaggerGen(x =>
@@ -86,7 +89,7 @@ namespace Auction
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                
+                endpoints.MapHub<BidHub>("/Bid/BidItemAsync");
                 //endpoints.MapHealthChecks("/health/ready", new HealthCheckOptions
                 //{
                 //    Predicate = (check) => check.Tags.Contains("ready")
