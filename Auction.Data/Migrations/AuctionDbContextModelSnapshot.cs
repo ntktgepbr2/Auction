@@ -69,6 +69,9 @@ namespace Auction.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique();
+
                     b.ToTable("Role");
 
                     b.HasData(

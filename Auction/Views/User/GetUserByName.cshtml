@@ -1,0 +1,40 @@
+﻿@model Auction.Domain.Models.User
+
+@{
+    ViewData["Title"] = "GetUserByName";
+}
+
+<h1>GetUserByName</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(user => user.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(user => user.Roles)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        <tr>
+            <td>
+                @Model.Name
+            </td>
+            <td>
+                @foreach (var item in Model.Roles)
+                {
+                    @Html.DisplayFor(userItem => item.Name)
+                }
+            </td>
+            <td>
+                <a asp-action="AddRole" asp-route-id="@Model.Name">Add Role</a>|
+                <a asp-action="DeleteRole" asp-route-id="@Model.Name">Delete Role</a>
+            </td>
+        </tr>
+
+    </tbody>
+</table>

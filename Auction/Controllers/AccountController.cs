@@ -9,6 +9,7 @@ using Auction.Models;
 using Auction.Business.Services.Users;
 using Auction.Extensions;
 using Auction.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Auction.Controllers
 {
@@ -37,7 +38,8 @@ namespace Auction.Controllers
                 {
                     await Authenticate(user);
 
-                    return RedirectToAction("Index", "Home");
+                    //if (user.Roles.Any(r => r.Name == "admin")) return RedirectToAction("Administration", "Home");
+                        return RedirectToAction("Index", "Home");
                 }
                 ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
@@ -76,10 +78,12 @@ namespace Auction.Controllers
 
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Roles?.First().Name),
+
             };
 
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            foreach (Role role in user.Roles) claims.Add(new Claim(ClaimTypes.Role, role.Name));
+
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimTypes.Role);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }

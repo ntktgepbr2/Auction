@@ -2,10 +2,8 @@
 
 namespace Auction.Domain.Models
 {
-    public class Role
+    public record Role : DomainEntity
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
         public ICollection<User> Users { get; set; }
         public Role()
         {

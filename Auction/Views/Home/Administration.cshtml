@@ -1,0 +1,70 @@
+﻿@model Auction.Domain.Models.User
+
+@{
+    ViewData["Title"] = "GetUserByName";
+}
+<div class="text-center mt-5">
+    <form asp-controller="User" asp-action="GetUserByName" method="get">
+        <p>
+            <b>Find user:</b> <input type="text" name="name" />
+            <input type="submit" value="Search" />
+        </p>
+    </form>
+</div>
+
+
+
+@if (Model != null)
+{
+    <table class="table" style="max-width: 70%">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(user => user.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(user => user.Roles)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>
+                    @Model.Name
+                </td>
+
+                <td>
+
+                    @foreach (var role in Model.Roles)
+                    {
+                        @role.Name
+                        ;
+                    }
+
+                </td>
+                <td>
+                    <form asp-controller="User" asp-action="AddUserRole" method="post">
+                        <select name="roles" id="roles">
+                            <option value="moderator">Moderator</option>
+                            <option value="user">User</option>
+                        </select>
+                        <br><br>
+                        <input type="submit" value="Add" asp-route-id="@Model.Id" asp-action="AddUserRole">
+                    </form>
+                </td>
+                <td>
+                    <form asp-controller="User" asp-action="RemoveUserRole">
+                        <select name="roles" id="roles">
+                            <option value="moderator">Moderator</option>
+                            <option value="user">User</option>
+                        </select>
+                        <br><br>
+                        <input type="submit" value="Remove" asp-route-id="@Model.Id">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+}

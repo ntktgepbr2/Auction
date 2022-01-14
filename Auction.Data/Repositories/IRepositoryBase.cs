@@ -6,7 +6,6 @@ namespace Auction.Data.Repositories
 {
     public interface IRepositoryBase<TEntity> where TEntity : class
     {
-        //Task<IReadOnlyCollection<TEntity>> GetAll(TEntity entity);
         Task<IReadOnlyCollection<TEntity>> GetAllByName(string name);
         Task<IReadOnlyCollection<TEntity>> GetAll();
         Task<TEntity> GetEntity(Guid id);

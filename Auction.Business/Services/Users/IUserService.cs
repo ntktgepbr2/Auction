@@ -18,5 +18,6 @@ namespace Auction.Business.Services.Users
         Task<User> CreateUser(UpdateUserCommand command);
 
         Task DeleteUser(Guid itemId);
+        Task UpdateUserContext();
     }
 }

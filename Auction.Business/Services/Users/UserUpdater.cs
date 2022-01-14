@@ -41,6 +41,11 @@ namespace Auction.Business.Services.Users
             return user;
         }
 
+        public async Task UpdateUserContext()
+        {
+            await _userRepository.UpdateUserContext();
+        }
+
         private static User UpdateEntity(User User, UpdateUserCommand command)
         {
             User.Name = command.Name;

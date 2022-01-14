@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Auction.Business.Services.ItemLots;
+using Auction.Domain.Models;
 using Auction.Extensions;
+using Auction.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +24,16 @@ namespace Auction.Controllers
 
             return View(allItems.ToDto());
         }
+
         [Authorize(Roles = "admin")]
+        public async Task<IActionResult> Administration(User user = null)
+        {
+            if (user.IsValid())
+                return View(user);
+
+            return View();
+        }
+
         public IActionResult About()
         {
 

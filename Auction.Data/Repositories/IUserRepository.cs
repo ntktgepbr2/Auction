@@ -7,5 +7,6 @@ namespace Auction.Data.Repositories
     {
         Task<User> GetUserForLogin(string name, string password);
         Task<User> GetUserByEmail(string email);
+        Task UpdateUserContext();
     }
 }

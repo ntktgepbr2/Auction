@@ -865,3 +865,6 @@ D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Account\Logout.cshtml.g.c
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Bid\BidItemAsync.cshtml.g.cs
 D:\AuctionProject\Auction\bin\Debug\net5.0\libman.json
+D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Shared\_NavBar.cshtml.g.cs
+D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Home\Administration.cshtml.g.cs
+D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\User\GetUserByName.cshtml.g.cs

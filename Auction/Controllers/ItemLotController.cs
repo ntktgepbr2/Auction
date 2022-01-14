@@ -38,13 +38,9 @@ namespace Auction.Controllers
         public async Task<ActionResult<List<ItemDto>>> GetAllUserItemsAsync()
         {
             var userEmail = HttpContext.User.Identity.Name;
-
             var result = await _itemLotService.GetAllUserItems(userEmail);
-            var itemDto = result.ToDto();
-            //TempData["Items"] = itemDto;
-            //TempData.Keep();
 
-            return View(itemDto);
+            return View(result.ToDto());
         }
 
         [HttpGet("{id}")]
