@@ -11,6 +11,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="nlog.config" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" />
@@ -22,6 +26,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.14" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
+    <PackageReference Include="NLog" Version="4.7.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
     <PackageReference Include="xunit.extensibility.core" Version="2.4.1" />
     <PackageReference Include="xunit.extensibility.execution" Version="2.4.1" />
@@ -39,9 +44,13 @@
 
   <ItemGroup>
     <None Include="D:\AuctionProject\Auction\Auction\.editorconfig" />
+    <None Include="nlog.config" />
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="CustomExceptionMiddleware\" />
+    <Folder Include="Exceptions\" />
+    <Folder Include="Views\User\" />
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 

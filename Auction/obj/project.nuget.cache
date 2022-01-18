@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "65gY1+SuAUol83AxtWia6mI8Wc99pWs+4YathXwMydmEI0XiFxDSbAxQBENfGADx7vrwyIdeRUh6Hrkw4/ZQuQ==",
+  "dgSpecHash": "9DsjkKgr1D9B46uDePm4GWbT0Z4nR9yzIn7btsNk9mA49zj/PbXSSYBCQ7rE+5DNNKcbGA9KS6kHKOXa5HvjtA==",
   "success": true,
   "projectFilePath": "D:\\AuctionProject\\Auction\\Auction.csproj",
   "expectedPackageFiles": [
@@ -67,6 +67,8 @@
     "C:\\Users\\Danny\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\netstandard.library\\1.6.1\\netstandard.library.1.6.1.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\newtonsoft.json\\11.0.2\\newtonsoft.json.11.0.2.nupkg.sha512",
+    "C:\\Users\\Danny\\.nuget\\packages\\nlog\\4.7.13\\nlog.4.7.13.nupkg.sha512",
+    "C:\\Users\\Danny\\.nuget\\packages\\nlog.extensions.logging\\1.7.4\\nlog.extensions.logging.1.7.4.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.debian.8-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.0\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.0.nupkg.sha512",

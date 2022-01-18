@@ -1,4 +1,5 @@
 ﻿using Auction.Business.Services.ItemLots;
+using Auction.Business.Services.Logging;
 using Auction.Business.Services.Roles;
 using Auction.Business.Services.Users;
 using Auction.Data.Repositories;
@@ -25,6 +26,8 @@ namespace Auction.Infrastructure.DependencyInjection
                 .AddScoped<IUserRemover, UserRemover>();
             services
                 .AddScoped<IRoleService, RoleService>();
+            services
+                .AddSingleton<ILoggerService, LoggerService>();
         }
 
         public static void AddDataLayerDependencyInjections(this IServiceCollection services)

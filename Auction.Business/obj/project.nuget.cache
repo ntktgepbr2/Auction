@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LSOlSsChI7cRiu6bYL97wsIVlJ1cBSqnF9wYBcKQUrIWqzNZM3rDYfl23GTcbMrcGs+eGSUeQ7/5T+mqFHrh6Q==",
+  "dgSpecHash": "zuXGuRwesKazZA40af5MTZwyUWYY/U9/8tx+ZRjX9cAcTun2f2cFeEaK0HOuc3panMQQap2mooTpj+4xEJhvWg==",
   "success": true,
   "projectFilePath": "D:\\AuctionProject\\Auction.Business\\Auction.Business.csproj",
   "expectedPackageFiles": [
@@ -38,6 +38,8 @@
     "C:\\Users\\Danny\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\newtonsoft.json\\10.0.1\\newtonsoft.json.10.0.1.nupkg.sha512",
+    "C:\\Users\\Danny\\.nuget\\packages\\nlog\\4.7.11\\nlog.4.7.11.nupkg.sha512",
+    "C:\\Users\\Danny\\.nuget\\packages\\nlog.extensions.logging\\1.7.4\\nlog.extensions.logging.1.7.4.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\swashbuckle.aspnetcore\\6.2.3\\swashbuckle.aspnetcore.6.2.3.nupkg.sha512",
     "C:\\Users\\Danny\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.2.3\\swashbuckle.aspnetcore.swagger.6.2.3.nupkg.sha512",

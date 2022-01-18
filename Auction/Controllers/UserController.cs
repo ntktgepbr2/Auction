@@ -1,11 +1,18 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Auction.Business.Services.Logging;
 using Auction.Business.Services.Roles;
 using Auction.Business.Services.Users;
+using Auction.Contracts.Roles;
+using Auction.Contracts.Users;
 using Auction.Domain.Models;
+using Auction.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.OpenApi.Extensions;
 
 namespace Auction.Controllers
 {
@@ -22,35 +29,52 @@ namespace Auction.Controllers
             _roleService = roleService;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetUserById(Guid Id)
-        {
-            return Ok(new { name = "Daniel" });
-        }
-
         [HttpGet()]
-        public async Task<ActionResult<User>> GetUserByName(string name)
+        public async Task<ActionResult<User>> GetUserByName(GetUserRequest request)
         {
-            User user = await _userService.GetUserByEmail(name);
+            if (ModelState.IsValid)
+            {
+                User user = await _userService.GetUserByEmail(request.Name);
+                return View("~/Views/Home/Administration.cshtml", user);
+            }
 
-            return View("~/Views/Home/Administration.cshtml", user);
+            return View("~/Views/Home/Administration.cshtml");
         }
 
-        [HttpPost("{id}")]
-        public async Task<ActionResult<User>> AddUserRole(Guid Id, string[] roles)
+        [HttpPost()]
+        public async Task<ActionResult<User>> AddUserRole(AddUserRoleRequest request)
         {
-            User user = await _userService.GetUserById(Id);
-            Role role = await _roleService.GetRole(roles.FirstOrDefault());
+            User user = await _userService.GetUserByEmail(request.Name);
+            Role role = await _roleService.GetRole(request.Roles.FirstOrDefault());
+            Task.WaitAll();
+            if (user.Roles.Contains(role))
+            {
+                ViewBag.ErrorMessage = $"This user is already have {role.Name} role";
+                return View("~/Views/Home/Administration.cshtml", user);
+            }
             user.Roles.Add(role);
-            //await _userService.UpdateUserContext();
+            await _roleService.UpdateUserContext();
+
+            return View("~/Views/Home/Administration.cshtml", user);
+
+        }
+
+        [HttpPost()]
+        public async Task<ActionResult<User>> RemoveUserRole(RemoveUserRoleRequest request)
+        {
+            User user = await _userService.GetUserByEmail(request.Name);
+            Role role = await _roleService.GetRole(request.Roles.FirstOrDefault());
+            Task.WaitAll();
+            if (!user.Roles.Contains(role))
+            {
+                ViewBag.ErrorMessage = $"User doesn't have {role.Name} role";
+                return View("~/Views/Home/Administration.cshtml", user);
+            }
+            user.Roles.Remove(role);
+            await _roleService.UpdateUserContext();
 
             return View("~/Views/Home/Administration.cshtml", user);
         }
 
-        [HttpGet()]
-        public IActionResult GetAllUsers()
-        {
-            return Ok(new { name = "Daniel" });
-        }
     }
 }

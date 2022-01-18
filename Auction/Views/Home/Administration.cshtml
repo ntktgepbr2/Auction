@@ -6,13 +6,13 @@
 <div class="text-center mt-5">
     <form asp-controller="User" asp-action="GetUserByName" method="get">
         <p>
-            <b>Find user:</b> <input type="text" name="name" />
+            <b>Find user:</b> <input type="text" name="name" asp-for="@Model.Name"/>
             <input type="submit" value="Search" />
+            <span asp-validation-for="@Model.Name" />
         </p>
+        <div class="validation" asp-validation-summary="All"></div>
     </form>
 </div>
-
-
 
 @if (Model != null)
 {
@@ -36,13 +36,13 @@
                 </td>
 
                 <td>
-
                     @foreach (var role in Model.Roles)
                     {
                         @role.Name
                         ;
+                        <br />
                     }
-
+                    <p class="text-danger"> @ViewBag.ErrorMessage </p>
                 </td>
                 <td>
                     <form asp-controller="User" asp-action="AddUserRole" method="post">
@@ -51,17 +51,22 @@
                             <option value="user">User</option>
                         </select>
                         <br><br>
-                        <input type="submit" value="Add" asp-route-id="@Model.Id" asp-action="AddUserRole">
+                        <input type="submit" value="Add" asp-action="AddUserRole">
+                        <input type="hidden" value="@Model.Name" name="name" />
                     </form>
                 </td>
                 <td>
                     <form asp-controller="User" asp-action="RemoveUserRole">
                         <select name="roles" id="roles">
-                            <option value="moderator">Moderator</option>
-                            <option value="user">User</option>
+                            @foreach (var role in Model.Roles)
+                            {
+                                <option value="@role.Name">@role.Name</option>
+                            }
                         </select>
                         <br><br>
-                        <input type="submit" value="Remove" asp-route-id="@Model.Id">
+                        <input type="hidden" value="@Model.Name" name="name" />
+                        <input type="submit" value="Remove" asp-action="RemoveUserRole">
+                        
                     </form>
                 </td>
             </tr>

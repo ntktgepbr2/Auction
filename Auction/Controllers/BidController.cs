@@ -26,17 +26,17 @@ namespace Auction.Controllers
         public async Task<IActionResult> GetItemByIdAsync(Guid id)
         {
             var item = await _itemLotService.GetItemById(id);
-
             return View(item.ToDto());
+
         }
 
         [HttpGet]
         public async Task<IActionResult> BidItemAsync(Guid Id, string errorMessage = null)
         {
             var item = await _itemLotService.GetItemById(Id);
-            ViewBag.ErrorMessage = errorMessage;
+                ViewBag.ErrorMessage = errorMessage;
 
-            return View(item.ToDto());
+                return View(item.ToDto());
         }
 
         [HttpPost]
@@ -44,12 +44,12 @@ namespace Auction.Controllers
         {
             if (!ModelState.IsValid) { return RedirectToAction("BidItemAsync", new { request.Id, errorMessage = "Invalid bid" }); }
 
-            if (request.LastBid <= request.CurrentPrice) { return RedirectToAction("BidItemAsync", new { request.Id, errorMessage = $"Bid more then {request.CurrentPrice}" }); }
+                if (request.LastBid <= request.CurrentPrice) { return RedirectToAction("BidItemAsync", new { request.Id, errorMessage = $"Bid more then {request.CurrentPrice}" }); }
 
-            var userEmail = HttpContext.User.Identity.Name;
-            await _itemLotService.UpdateItemPrice(request.ToCommand(userEmail));
+                var userEmail = HttpContext.User.Identity.Name;
+                await _itemLotService.UpdateItemPrice(request.ToCommand(userEmail));
 
-            return RedirectToAction("BidItemAsync", request.Id);
+                return RedirectToAction("BidItemAsync", request.Id);
         }
 
     }

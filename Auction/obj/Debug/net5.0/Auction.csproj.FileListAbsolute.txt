@@ -867,4 +867,6 @@ D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Bid\BidItemAsync.cshtml.g
 D:\AuctionProject\Auction\bin\Debug\net5.0\libman.json
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Shared\_NavBar.cshtml.g.cs
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Home\Administration.cshtml.g.cs
-D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\User\GetUserByName.cshtml.g.cs
+D:\AuctionProject\Auction\bin\Debug\net5.0\NLog.dll
+D:\AuctionProject\Auction\bin\Debug\net5.0\NLog.Extensions.Logging.dll
+D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Home\Error.cshtml.g.cs

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Auction.Data.Migrations
 {
     [DbContext(typeof(AuctionDbContext))]
-    [Migration("20220113152313_Add_Index_Name")]
-    partial class Add_Index_Name
+    [Migration("20220114075907_Change_PK_For_Role")]
+    partial class Change_PK_For_Role
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,32 +59,21 @@ namespace Auction.Data.Migrations
 
             modelBuilder.Entity("Auction.Domain.Models.Role", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
+                    b.HasKey("Name");
 
                     b.ToTable("Role");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
                             Name = "admin"
                         },
                         new
                         {
-                            Id = 2,
                             Name = "user"
                         });
                 });
@@ -117,13 +106,13 @@ namespace Auction.Data.Migrations
 
             modelBuilder.Entity("RoleUser", b =>
                 {
-                    b.Property<int>("RolesId")
-                        .HasColumnType("int");
+                    b.Property<string>("RolesName")
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<Guid>("UsersId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("RolesId", "UsersId");
+                    b.HasKey("RolesName", "UsersId");
 
                     b.HasIndex("UsersId");
 
@@ -143,7 +132,7 @@ namespace Auction.Data.Migrations
                 {
                     b.HasOne("Auction.Domain.Models.Role", null)
                         .WithMany()
-                        .HasForeignKey("RolesId")
+                        .HasForeignKey("RolesName")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

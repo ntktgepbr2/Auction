@@ -17,24 +17,14 @@ namespace Auction.Business.Services.Roles
             _roleRepository = roleRepository;
         }
 
-        public Task DeleteRole(string name)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IReadOnlyCollection<Role>> GetAllRoles()
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<Role> GetRole(string name)
         {
             return await _roleRepository.GetRole(name);
         }
 
-        public Task UpdateUserContext()
+        public async Task UpdateUserContext()
         {
-            throw new NotImplementedException();
+           await _roleRepository.UpdateContext();
         }
     }
 }

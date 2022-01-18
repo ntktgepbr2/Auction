@@ -59,8 +59,7 @@ namespace Auction.Data.DatabaseContext
 
             builder.ToTable("Role").Property(c => c.Name).HasConversion(n => n.ToLowerInvariant(), n => n).IsRequired().HasMaxLength(30);
             builder.HasMany(x => x.Users).WithMany(u => u.Roles).UsingEntity(join => join.ToTable("UserRole"));
-            builder.Ignore(p => p.Id);
-            builder.HasIndex(i => i.Name).IsUnique();
+            builder.HasKey(i => i.Name);
 
         }
     }
