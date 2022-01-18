@@ -48,5 +48,10 @@ namespace Auction.Business.Services.Users
         {
             await _userRemover.Delete(userId);
         }
+
+        public async Task UpdateUserContext()
+        {
+            await _userUpdater.UpdateUserContext();
+        }
     }
 }

@@ -23,9 +23,9 @@ namespace Auction.Data.DatabaseContext
             string adminEmail = "admin@gmail.com";
             string adminPassword = "123456";
 
-            Role adminRole = new Role { Id = 1, Name = adminRoleName };
-            Role userRole = new Role { Id = 2, Name = userRoleName };
-            User adminUser = new User { Id = Guid.NewGuid(), Name = adminEmail, Email = adminEmail, Password = adminPassword};
+            Role adminRole = new Role { Name = adminRoleName };
+            Role userRole = new Role { Name = userRoleName };
+            User adminUser = new User { Id = Guid.NewGuid(), Name = adminEmail, Email = adminEmail, Password = adminPassword };
 
             modelBuilder.Entity<Role>().HasData(new Role[] { adminRole, userRole });
             //modelBuilder.Entity<User>().HasData(new User[] { adminUser });
@@ -56,10 +56,10 @@ namespace Auction.Data.DatabaseContext
         }
         public void RoleConfigure(EntityTypeBuilder<Role> builder)
         {
-  
-            builder.ToTable("Role").Property(c => c.Name).IsRequired().HasMaxLength(30);
+
+            builder.ToTable("Role").Property(c => c.Name).HasConversion(n => n.ToLowerInvariant(), n => n).IsRequired().HasMaxLength(30);
             builder.HasMany(x => x.Users).WithMany(u => u.Roles).UsingEntity(join => join.ToTable("UserRole"));
-            builder.Property(p => p.Id);
+            builder.HasKey(i => i.Name);
 
         }
     }

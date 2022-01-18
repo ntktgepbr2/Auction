@@ -17,47 +17,24 @@ namespace Auction.Data.Repositories
             _context = context;
         }
 
-        //public async Task<IReadOnlyCollection<TEntity>> GetAll(TEntity entity)
-        //{
-        //    try
-        //    {
-        //        var query = this.All.Where(x => x.Name.Contains(entity.Name, StringComparison.CurrentCultureIgnoreCase));
-        //        return await query.ToArrayAsync();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw new Exception($"Couldn't retrieve entities: {ex.Message}");
-        //    }
-        //}
-
         public async Task<IReadOnlyCollection<TEntity>> GetAllByName(string name)
         {
-            try
             {
-                var query =  this.All.Where(x => x.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase));
+                var query = this.All.Where(x => x.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase));
                 return await query.ToArrayAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
             }
         }
 
         public async Task<IReadOnlyCollection<TEntity>> GetAll()
         {
-            try
-            {
-                return await this.All.ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
-            }
+            return await this.All.ToListAsync();
         }
 
         public async Task<TEntity> GetEntity(Guid id)
         {
-            return await _context.FindAsync<TEntity>(id);
+            var result = await _context.FindAsync<TEntity>(id);
+
+            return result;
         }
 
         /// <summary>
@@ -72,16 +49,8 @@ namespace Auction.Data.Repositories
                 throw new ArgumentNullException($"{nameof(AddAsync)} entity must not be null");
             }
 
-            try
-            {
-                await _context.AddAsync(entity);
-                await _context.SaveChangesAsync();
-
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"{nameof(entity)} could not be saved: {ex.Message}");
-            }
+            await _context.AddAsync(entity);
+            await _context.SaveChangesAsync();
         }
 
         public async Task UpdateContext() => await _context.SaveChangesAsync();
@@ -93,16 +62,9 @@ namespace Auction.Data.Repositories
                 throw new ArgumentNullException($"{nameof(AddAsync)} entity must not be null");
             }
 
-            try
-            {
-                _context.Update(entity);
-                await _context.SaveChangesAsync();
+            _context.Update(entity);
+            await _context.SaveChangesAsync();
 
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"{nameof(entity)} could not be updated: {ex.Message}");
-            }
         }
 
         public async Task DeleteAsync(Guid id)

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -9,6 +10,7 @@ using Auction.Models;
 using Auction.Business.Services.Users;
 using Auction.Extensions;
 using Auction.Domain.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Auction.Controllers
 {
@@ -30,19 +32,23 @@ namespace Auction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(UserLoginModel model)
         {
+
             if (ModelState.IsValid)
             {
                 var user = await _userService.GetForLogin(model.Email, model.Password);
-                if (user != null)
-                {
-                    await Authenticate(user);
+                    if (user != null)
+                    {
+                        await Authenticate(user);
+                        return RedirectToAction("Index", "Home");
+                    }
 
-                    return RedirectToAction("Index", "Home");
-                }
-                ModelState.AddModelError("", "Некорректные логин и(или) пароль");
+                    ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
+
             return View(model);
         }
+
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -52,19 +58,18 @@ namespace Auction.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(UserRegisterModel model)
         {
+
             if (ModelState.IsValid)
             {
                 var user = await _userService.GetForLogin(model.Email, model.Password);
-                if (user == null)
-                {
-                    // добавляем пользователя в бд
-                    user = await _userService.CreateUser(model.LoginModelToCommand());
+                    if (user == null)
+                    {
+                        user = await _userService.CreateUser(model.LoginModelToCommand());
+                        await Authenticate(user);
 
-                    await Authenticate(user); // аутентификация
+                        return RedirectToAction("Index", "Home");
+                    }
 
-                    return RedirectToAction("Index", "Home");
-                }
-                else
                     ModelState.AddModelError("", "Некорректные логин и(или) пароль");
             }
             return View(model);
@@ -76,10 +81,12 @@ namespace Auction.Controllers
 
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Name),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Roles?.First().Name),
+
             };
 
-            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimsIdentity.DefaultRoleClaimType);
+            foreach (Role role in user.Roles) claims.Add(new Claim(ClaimTypes.Role, role.Name));
+
+            ClaimsIdentity id = new ClaimsIdentity(claims, "ApplicationCookie", ClaimsIdentity.DefaultNameClaimType, ClaimTypes.Role);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(id));
         }

@@ -26,33 +26,35 @@ namespace Auction.Controllers
         }
 
         [HttpGet()]
-        public async Task<ActionResult<IReadOnlyCollection<ItemLot>>> GetAllItemsAsync()
-        {
-            var allItems = await _itemLotService.GetAllItems();
-            TempData["allItems"] = allItems.ToDto();
-
-            return RedirectToAction("Index", "Home");   
-        }
-
-        [HttpGet()]
         public async Task<ActionResult<List<ItemDto>>> GetAllUserItemsAsync()
         {
-            var userEmail = HttpContext.User.Identity.Name;
+            try
+            {
+                var userEmail = HttpContext.User.Identity.Name;
+                var result = await _itemLotService.GetAllUserItems(userEmail);
 
-            var result = await _itemLotService.GetAllUserItems(userEmail);
-            var itemDto = result.ToDto();
-            //TempData["Items"] = itemDto;
-            //TempData.Keep();
+                return View(result.ToDto());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Couldn't retrieve user's items: {ex.Message}");
+            }
 
-            return View(itemDto);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetItemByIdAsync(Guid id)
         {
-            var result = await _itemLotService.GetItemById(id);
+            try
+            {
+                var result = await _itemLotService.GetItemById(id);
 
-            return View(result.ToDto());
+                return View(result.ToDto());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
+            }
         }
 
         [HttpGet()]
@@ -64,32 +66,44 @@ namespace Auction.Controllers
         [HttpPost()]
         public async Task<ActionResult<ItemDto>>  CreateItemAsync(CreateItemRequest request)
         {
-            var userEmail = HttpContext.User.Identity.Name; 
+            try
+            {
+                var userEmail = HttpContext.User.Identity.Name;
+                var result = await _itemLotService.CreateItem(request.ToCommand(userEmail));
+                var resultDto = result.ToDto();
 
-            var result = await _itemLotService.CreateItem(request.ToCommand(userEmail));
-            var resultDto = result.ToDto();
-
-            return CreatedAtAction(nameof(GetItemByIdAsync), new {id = resultDto.Id}, resultDto);
+                return CreatedAtAction(nameof(GetItemByIdAsync), new { id = resultDto.Id }, resultDto);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
+            }
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ItemDto>> GetItemToUpdateAsync(Guid Id)
         {
-            return View((await _itemLotService.GetItemById(Id)).ToDto());
+            try
+            {
+                return View((await _itemLotService.GetItemById(Id)).ToDto());
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
+            }
         }
 
         [HttpPost]
         public async Task<ActionResult<ItemDto>> UpdateItemAsync(UpdateItemRequest request)
         {
             var result = await _itemLotService.UpdateItem(request.ToCommand());
-
             return RedirectToAction("GetAllUserItemsAsync");
-        }
+            }
 
         [HttpDelete("{id}")]
         public async Task DeleteItemAsync(Guid id)
         {
-           await _itemLotService.DeleteItem(id);
+            await _itemLotService.DeleteItem(id);
         }
     }
 }

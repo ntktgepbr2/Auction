@@ -25,7 +25,6 @@ namespace Auction.Business.Services.Users
         public async Task<User> GetUserById(Guid id)
         {
             var result = await _userRepository.GetEntity(id);
-
             return result ?? throw new EntityNotFoundException("User not found");
         }
 

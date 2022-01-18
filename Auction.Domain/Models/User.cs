@@ -8,5 +8,9 @@ namespace Auction.Domain.Models
         public string Password { get; set; }
         public ICollection<ItemLot> ItemLots { get; set; }
         public ICollection<Role> Roles { get; set; }
+        public User()
+        {
+            Roles = new List<Role>();
+        }
     }
 }
