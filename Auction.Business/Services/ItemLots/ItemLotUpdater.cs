@@ -50,7 +50,7 @@ namespace Auction.Business.Services.ItemLots
         public async Task UpdateItemPrice(UpdateItemPriceCommand command)
         {
             var item = await _itemRepository.GetEntity(command.Id) ?? throw new EntityNotFoundException("Entity not found");
-            var user = await _userService.GetUserByEmail(command.UserEmail);
+            var user = await _userService.GetUserByEmail(command.UserName);
 
             if (command.LastBid > item.CurrentPrice)
             {

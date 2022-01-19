@@ -2,11 +2,8 @@
 
 namespace Auction.Contracts.Items
 {
-    public class ItemDto
+    public class ItemDto : BaseDto
     {
-        public Guid Id { get; init; }
-        public string Name { get; set; }
-
         public string Description { get; set; }
 
         public decimal StartedPrice { get; init; }

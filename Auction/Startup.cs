@@ -39,6 +39,7 @@ namespace Auction
                         options.LoginPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
                         options.AccessDeniedPath = new Microsoft.AspNetCore.Http.PathString("/Account/Login");
         });
+            services.AddAutoMapper(typeof(Startup));
             services.AddBusinessLayerDependencyInjections();
             services.AddDataLayerDependencyInjections();
             services.AddControllersWithViews(options => options.SuppressAsyncSuffixInActionNames = false);

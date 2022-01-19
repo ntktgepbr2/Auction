@@ -41,6 +41,11 @@ namespace Auction.Business.Services.Users
 
         public async Task<User> CreateUser(UpdateUserCommand command)
         {
+            return await _userUpdater.Create(command);
+        }
+
+        public async Task<User> UpdateUser(UpdateUserCommand command)
+        {
             return await _userUpdater.Update(command);
         }
 

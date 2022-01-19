@@ -4,12 +4,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Auction.Business.Contracts.Items;
+using Auction.Business.Contracts.Users;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Auction.Models;
 using Auction.Business.Services.Users;
 using Auction.Extensions;
 using Auction.Domain.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 
 namespace Auction.Controllers
@@ -17,10 +20,12 @@ namespace Auction.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
@@ -64,7 +69,7 @@ namespace Auction.Controllers
                 var user = await _userService.GetForLogin(model.Email, model.Password);
                     if (user == null)
                     {
-                        user = await _userService.CreateUser(model.LoginModelToCommand());
+                        user = await _userService.CreateUser(_mapper.Map<UpdateUserCommand>(model));
                         await Authenticate(user);
 
                         return RedirectToAction("Index", "Home");

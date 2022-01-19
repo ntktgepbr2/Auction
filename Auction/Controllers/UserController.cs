@@ -9,6 +9,7 @@ using Auction.Contracts.Roles;
 using Auction.Contracts.Users;
 using Auction.Domain.Models;
 using Auction.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
@@ -22,27 +23,29 @@ namespace Auction.Controllers
     {
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserService userService, IRoleService roleService)
+        public UserController(IUserService userService, IRoleService roleService, IMapper mapper)
         {
             _userService = userService;
             _roleService = roleService;
+            _mapper = mapper;
         }
 
         [HttpGet()]
-        public async Task<ActionResult<User>> GetUserByName(GetUserRequest request)
+        public async Task<ActionResult<UserDto>> GetUserByName(GetUserRequest request)
         {
             if (ModelState.IsValid)
             {
                 User user = await _userService.GetUserByEmail(request.Name);
-                return View("~/Views/Home/Administration.cshtml", user);
+                return View("~/Views/Home/Administration.cshtml", _mapper.Map<UserDto>(user));
             }
 
             return View("~/Views/Home/Administration.cshtml");
         }
 
         [HttpPost()]
-        public async Task<ActionResult<User>> AddUserRole(AddUserRoleRequest request)
+        public async Task<ActionResult<UserDto>> AddUserRole(AddUserRoleRequest request)
         {
             User user = await _userService.GetUserByEmail(request.Name);
             Role role = await _roleService.GetRole(request.Roles.FirstOrDefault());
@@ -50,17 +53,17 @@ namespace Auction.Controllers
             if (user.Roles.Contains(role))
             {
                 ViewBag.ErrorMessage = $"This user is already have {role.Name} role";
-                return View("~/Views/Home/Administration.cshtml", user);
+                return View("~/Views/Home/Administration.cshtml",_mapper.Map<UserDto>(user));
             }
             user.Roles.Add(role);
             await _roleService.UpdateUserContext();
 
-            return View("~/Views/Home/Administration.cshtml", user);
+            return View("~/Views/Home/Administration.cshtml", _mapper.Map<UserDto>(user));
 
         }
 
         [HttpPost()]
-        public async Task<ActionResult<User>> RemoveUserRole(RemoveUserRoleRequest request)
+        public async Task<ActionResult<UserDto>> RemoveUserRole(RemoveUserRoleRequest request)
         {
             User user = await _userService.GetUserByEmail(request.Name);
             Role role = await _roleService.GetRole(request.Roles.FirstOrDefault());
@@ -68,12 +71,12 @@ namespace Auction.Controllers
             if (!user.Roles.Contains(role))
             {
                 ViewBag.ErrorMessage = $"User doesn't have {role.Name} role";
-                return View("~/Views/Home/Administration.cshtml", user);
+                return View("~/Views/Home/Administration.cshtml", _mapper.Map<UserDto>(user));
             }
             user.Roles.Remove(role);
             await _roleService.UpdateUserContext();
 
-            return View("~/Views/Home/Administration.cshtml", user);
+            return View("~/Views/Home/Administration.cshtml", _mapper.Map<UserDto>(user));
         }
 
     }

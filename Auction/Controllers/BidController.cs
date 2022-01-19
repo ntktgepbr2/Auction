@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using Auction.Business.Contracts.Items;
 using Auction.Business.Services.ItemLots;
 using Auction.Contracts.Items;
 using Auction.Extensions;
 using Auction.Business.Services.Users;
+using Auction.Domain.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 
 namespace Auction.Controllers
@@ -15,28 +18,30 @@ namespace Auction.Controllers
     {
         private readonly IItemLotService _itemLotService;
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public BidController(IItemLotService itemLotService, IUserService userService)
+        public BidController(IItemLotService itemLotService, IUserService userService, IMapper mapper)
         {
             _itemLotService = itemLotService;
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetItemByIdAsync(Guid id)
         {
-            var item = await _itemLotService.GetItemById(id);
-            return View(item.ToDto());
+            ItemLot item = await _itemLotService.GetItemById(id);
+            return View(_mapper.Map<ItemDto>(item));
 
         }
 
         [HttpGet]
         public async Task<IActionResult> BidItemAsync(Guid Id, string errorMessage = null)
         {
-            var item = await _itemLotService.GetItemById(Id);
-                ViewBag.ErrorMessage = errorMessage;
+            ItemLot item = await _itemLotService.GetItemById(Id);
+            ViewBag.ErrorMessage = errorMessage;
 
-                return View(item.ToDto());
+            return View(_mapper.Map<ItemDto>(item));
         }
 
         [HttpPost]
@@ -44,12 +49,10 @@ namespace Auction.Controllers
         {
             if (!ModelState.IsValid) { return RedirectToAction("BidItemAsync", new { request.Id, errorMessage = "Invalid bid" }); }
 
-                if (request.LastBid <= request.CurrentPrice) { return RedirectToAction("BidItemAsync", new { request.Id, errorMessage = $"Bid more then {request.CurrentPrice}" }); }
+            if (request.LastBid <= request.CurrentPrice) { return RedirectToAction("BidItemAsync", new { request.Id, errorMessage = $"Bid more then {request.CurrentPrice}" }); }
+            await _itemLotService.UpdateItemPrice(_mapper.Map<UpdateItemPriceCommand>(request));
 
-                var userEmail = HttpContext.User.Identity.Name;
-                await _itemLotService.UpdateItemPrice(request.ToCommand(userEmail));
-
-                return RedirectToAction("BidItemAsync", request.Id);
+            return RedirectToAction("BidItemAsync", request.Id);
         }
 
     }

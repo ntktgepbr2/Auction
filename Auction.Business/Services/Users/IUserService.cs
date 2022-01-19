@@ -16,6 +16,7 @@ namespace Auction.Business.Services.Users
         Task<User> GetUserByEmail(string email);
 
         Task<User> CreateUser(UpdateUserCommand command);
+        Task<User> UpdateUser(UpdateUserCommand command);
 
         Task DeleteUser(Guid itemId);
         Task UpdateUserContext();

@@ -11,6 +11,7 @@ namespace Auction.Domain.Models
         public User()
         {
             Roles = new List<Role>();
+            ItemLots = new List<ItemLot>();
         }
     }
 }
