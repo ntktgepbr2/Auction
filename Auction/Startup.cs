@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
 using Auction.Business.Services.Logging;
+using Auction.Business.Services.Users;
 using Auction.Data.DatabaseContext;
 using Auction.Extensions;
+using Auction.Helpers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -46,11 +48,7 @@ namespace Auction
             services.AddSignalR(options=>options.ClientTimeoutInterval = System.TimeSpan.FromMinutes(5));
             services.AddMvc();
             services.AddDatabaseDeveloperPageExceptionFilter();
-
-            //services.AddSwaggerGen(x =>
-            //{
-            //    x.SwaggerDoc("v1", new OpenApiInfo { Title = "Auction API", Version = "v1" });
-            //});
+            services.AddScoped<IPasswordValidator, PasswordValidator>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerService logger)
@@ -64,10 +62,6 @@ namespace Auction
             {
                 app.UseHsts();
             }
-            //var swaggerOptions = new SwaggerOptions();
-            //Configuration.GetSection(nameof(SwaggerOptions)).Bind(swaggerOptions);
-            //app.UseSwagger(option => option.RouteTemplate = swaggerOptions.JsonRoute);
-            //app.UseSwaggerUI(option => option.SwaggerEndpoint(swaggerOptions.UiEndPoint, swaggerOptions.Description));
             app.ConfigureCustomExceptionMiddleware();
             app.UseRouting();
             app.UseStaticFiles();

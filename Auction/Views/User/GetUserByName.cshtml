@@ -1,0 +1,61 @@
+﻿@model Auction.Contracts.Users.UserDto
+
+@{
+    ViewData["Title"] = "GetUserByName";
+}
+
+<table class="table" style="max-width: 70%">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(user => user.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(user => user.Roles)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+
+            <tr>
+                <td>
+                    @Model.Name
+                </td>
+
+                <td>
+                    @foreach (var role in Model.Roles)
+                    {
+                        @role.Name
+                        ;
+                        <br />
+                    }
+                    <p class="text-danger"> @ViewBag.ErrorMessage </p>
+                </td>
+                <td>
+                    <form asp-controller="User" asp-action="AddUserRole" method="post" style="max-width: 50px">
+                        <select name="roles" id="roles">
+                            <option value="moderator">Moderator</option>
+                            <option value="user">User</option>
+                        </select>
+                        <br><br>
+                        <input type="submit" value="Add" asp-action="AddUserRole">
+                        <input type="hidden" value="@Model.Name" name="name" />
+                    </form>
+                </td>
+                <td>
+                    <form asp-controller="User" asp-action="RemoveUserRole" style="max-width: 50px">
+                        <select name="roles" id="roles">
+                            @foreach (var role in Model.Roles)
+                            {
+                                <option value="@role.Name">@role.Name</option>
+                            }
+                        </select>
+                        <br><br>
+                        <input type="hidden" value="@Model.Name" name="name" />
+                        <input type="submit" value="Remove" asp-action="RemoveUserRole">
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>

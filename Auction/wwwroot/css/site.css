@@ -39,3 +39,8 @@ input[type="checkbox"].input-validation-error {
     font-weight: bold;
     font-size: 1.1em;
 }
+
+.td-form-width {
+    text-align: right !important;
+    width: 100%;
+}

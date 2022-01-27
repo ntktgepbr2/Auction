@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Auction.Business.Contracts.Users;
 using Auction.Business.Exceptions;
+using Auction.Data.Querying;
 using Auction.Data.Repositories;
 using Auction.Domain.Models;
 
@@ -35,11 +38,16 @@ namespace Auction.Business.Services.Users
             return result ?? throw new EntityNotFoundException("User not found");
         }
 
-        public async Task<User> GetUserForLogin(string name, string password)
+        public async Task<User> GetUserForLogin(UserHashedCredentials credentials)
         {
-            var result = await _userRepository.GetUserForLogin(name, password);
+            var result = await _userRepository.GetUserForLogin(credentials);
 
             return result;
+        }
+
+        public async Task<UserHashedCredentials> GetSalt(string email)
+        {
+            return await _userRepository.GetSalt(email);
         }
     }
 }

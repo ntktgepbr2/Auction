@@ -872,3 +872,4 @@ D:\AuctionProject\Auction\bin\Debug\net5.0\Microsoft.Extensions.DependencyInject
 D:\AuctionProject\Auction\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\User\GetUserByName.cshtml.g.cs

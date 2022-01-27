@@ -1,8 +1,10 @@
 ﻿using Auction.Domain.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Auction.Business.Contracts.Users;
+using Auction.Data.Querying;
 
 namespace Auction.Business.Services.Users
 {
@@ -34,12 +36,17 @@ namespace Auction.Business.Services.Users
             return await _userFetcher.GetUserByEmail(email);
         }
 
-        public async Task<User> GetForLogin(string name, string password)
+        public async Task<User> GetForLogin(UserHashedCredentials credentials)
         {
-            return await _userFetcher.GetUserForLogin(name, password);
+            return await _userFetcher.GetUserForLogin(credentials);
         }
 
-        public async Task<User> CreateUser(UpdateUserCommand command)
+        public async Task<UserHashedCredentials> GetSalt(string email)
+        {
+            return  await _userFetcher.GetSalt(email);
+        }
+
+        public async Task<User> CreateUser(CreateUserCommand command)
         {
             return await _userUpdater.Create(command);
         }

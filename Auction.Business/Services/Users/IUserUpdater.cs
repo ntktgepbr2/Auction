@@ -7,7 +7,7 @@ namespace Auction.Business.Services.Users
     public interface IUserUpdater
     {
         Task<User> Update(UpdateUserCommand command);
-        Task<User> Create(UpdateUserCommand command);
+        Task<User> Create(CreateUserCommand command);
         Task UpdateUserContext();
     }
 }

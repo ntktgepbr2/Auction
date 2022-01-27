@@ -75,10 +75,12 @@ namespace Auction.Controllers
             return RedirectToAction("GetAllUserItemsAsync", request.Name);
         }
 
-        [HttpDelete("{id}")]
-        public async Task DeleteItemAsync(Guid id)
+        [HttpPost]
+        public async Task<IActionResult> DeleteItemAsync(DeleteItemRequest request)
         {
-            await _itemLotService.DeleteItem(id);
+            await _itemLotService.DeleteItem(request.Id);
+
+            return RedirectToAction("GetAllUserItemsAsync", "ItemLot",new{name= request.Name });
         }
     }
 }

@@ -4,9 +4,9 @@
     ViewData["Title"] = "GetUserByName";
 }
 <div class="text-center mt-5">
-    <form asp-controller="User" asp-action="GetUserByName" method="get">
+    <form asp-controller="User" asp-action="GetUserForAdminPage" method="get">
         <p>
-            <b>Find user:</b> <input type="text" name="name" asp-for="@Model.Name"/>
+            <b>Find user:</b> <input type="text" name="name" asp-for="@Model.Name" />
             <input type="submit" value="Search" />
             <span asp-validation-for="@Model.Name" />
         </p>
@@ -22,10 +22,6 @@
                 <th>
                     @Html.DisplayNameFor(user => user.Name)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(user => user.Roles)
-                </th>
-                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -34,40 +30,17 @@
                 <td>
                     @Model.Name
                 </td>
-
-                <td>
-                    @foreach (var role in Model.Roles)
+                <td class="td-form-width">
+                    @using (Html.BeginForm("GetUserByName", "User", new { name = @Model.Name },FormMethod.Get))
                     {
-                        @role.Name
-                        ;
-                        <br />
+                        <input type="submit" class="btn btn-dark" value="Edit" />
                     }
-                    <p class="text-danger"> @ViewBag.ErrorMessage </p>
                 </td>
-                <td>
-                    <form asp-controller="User" asp-action="AddUserRole" method="post">
-                        <select name="roles" id="roles">
-                            <option value="moderator">Moderator</option>
-                            <option value="user">User</option>
-                        </select>
-                        <br><br>
-                        <input type="submit" value="Add" asp-action="AddUserRole">
-                        <input type="hidden" value="@Model.Name" name="name" />
-                    </form>
-                </td>
-                <td>
-                    <form asp-controller="User" asp-action="RemoveUserRole">
-                        <select name="roles" id="roles">
-                            @foreach (var role in Model.Roles)
-                            {
-                                <option value="@role.Name">@role.Name</option>
-                            }
-                        </select>
-                        <br><br>
-                        <input type="hidden" value="@Model.Name" name="name" />
-                        <input type="submit" value="Remove" asp-action="RemoveUserRole">
-                        
-                    </form>
+                <td class="td-form-width">
+                    @using (Html.BeginForm("DeleteUserAsync", "User", new { id = Model.Id }))
+                    {
+                        <input type="submit" class="btn btn-danger" value="Delete"  />
+                    }
                 </td>
             </tr>
         </tbody>

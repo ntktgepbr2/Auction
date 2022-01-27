@@ -6,6 +6,7 @@ namespace Auction.Domain.Models
     {
         public string Email { get; set; }
         public string Password { get; set; }
+        public string Salt { get; set; }
         public ICollection<ItemLot> ItemLots { get; set; }
         public ICollection<Role> Roles { get; set; }
         public User()

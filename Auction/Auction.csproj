@@ -40,18 +40,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="D:\AuctionProject\Auction\Auction\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="D:\AuctionProject\Auction\Auction\.editorconfig" />
     <None Include="nlog.config" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="CustomExceptionMiddleware\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Views\User\" />
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 
