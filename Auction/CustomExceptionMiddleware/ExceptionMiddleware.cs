@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Auction.Business.Exceptions;
 using Auction.Business.Services.Logging;
+using Auction.Exceptions;
 using Auction.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,7 +28,12 @@ namespace Auction.CustomExceptionMiddleware
             }
             catch (EntityNotFoundException ex)
             {
-                _logger.LogError($"Entity not found exception from the custom middleware: {ex}");
+                _logger.LogError($"Entity not found: {ex}");
+                await HandleExceptionAsync(httpContext, ex);
+            }
+            catch (NonAuthorizedException ex)
+            {
+                _logger.LogError($"Non authorized: {ex}");
                 await HandleExceptionAsync(httpContext, ex);
             }
             catch (ArgumentNullException ex)
@@ -37,7 +43,7 @@ namespace Auction.CustomExceptionMiddleware
             }
             catch (AccessViolationException ex)
             {
-                _logger.LogError($"Access violation error from the custom middleware: {ex}");
+                _logger.LogError($"Access violation error: {ex}");
                 await HandleExceptionAsync(httpContext, ex);
             }
             catch (Exception ex)
@@ -60,6 +66,8 @@ namespace Auction.CustomExceptionMiddleware
             var message = exception switch
             {
                 EntityNotFoundException => exception.Message,
+                ArgumentNullException => exception.Message,
+                NonAuthorizedException => exception.Message,
                 AccessViolationException => exception.Message,
                 _ => "Internal Server Error."
             };

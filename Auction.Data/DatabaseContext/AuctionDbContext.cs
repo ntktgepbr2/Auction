@@ -41,14 +41,14 @@ namespace Auction.Data.DatabaseContext
             builder.ToTable("User");
             builder.Property(p => p.Name).IsRequired().HasMaxLength(30);
             builder.Property(p => p.Email).IsRequired().HasMaxLength(30);
-            builder.Property(p => p.Password).IsRequired().HasMaxLength(30);
+            builder.Property(p => p.Password).IsRequired().HasMaxLength(60);
             builder.Property(p => p.Id).HasColumnType("uniqueidentifier");
+            builder.Property(p => p.Salt).IsRequired().HasMaxLength(30);
         }
-        // конфигурация для типа Company
         public void ItemLotConfigure(EntityTypeBuilder<ItemLot> builder)
         {
             builder.ToTable("Lots").Property(c => c.Name).IsRequired().HasMaxLength(30);
-            builder.HasOne(i => i.User).WithMany(u => u.ItemLots);
+            builder.HasOne(i => i.User).WithMany(u => u.ItemLots).OnDelete(DeleteBehavior.Cascade);
             builder.Property(p => p.StartedPrice).IsRequired().HasColumnType("decimal(10,2)");
             builder.Property(p => p.CurrentPrice).HasColumnType("decimal(10,2)");
             builder.Property(p => p.Id).HasColumnType("uniqueidentifier");

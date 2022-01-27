@@ -505,7 +505,6 @@ D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.Configurati
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.KeyPerFile.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.UserSecrets.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.Configuration.Xml.dll
-D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Abstractions.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Composite.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.FileProviders.Physical.dll
@@ -526,8 +525,6 @@ D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Tra
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.ObjectPool.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.ConfigurationExtensions.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.DataAnnotations.dll
-D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.Options.dll
-D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.Primitives.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Extensions.WebEncoders.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.JSInterop.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\Microsoft.Net.Http.Headers.dll
@@ -626,7 +623,6 @@ D:\AuctionProject\Auction\bin\Debug\net5.0\refs\System.Reflection.TypeExtensions
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\System.Resources.Reader.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\System.Resources.ResourceManager.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\System.Resources.Writer.dll
-D:\AuctionProject\Auction\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.Unsafe.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\System.Runtime.CompilerServices.VisualC.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\System.Runtime.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\refs\System.Runtime.Extensions.dll
@@ -870,3 +866,10 @@ D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Home\Administration.cshtm
 D:\AuctionProject\Auction\bin\Debug\net5.0\NLog.dll
 D:\AuctionProject\Auction\bin\Debug\net5.0\NLog.Extensions.Logging.dll
 D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\Home\Error.cshtml.g.cs
+D:\AuctionProject\Auction\bin\Debug\net5.0\AutoMapper.dll
+D:\AuctionProject\Auction\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+D:\AuctionProject\Auction\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\AuctionProject\Auction\bin\Debug\net5.0\Microsoft.Extensions.Options.dll
+D:\AuctionProject\Auction\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
+D:\AuctionProject\Auction\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+D:\AuctionProject\Auction\obj\Debug\net5.0\Razor\Views\User\GetUserByName.cshtml.g.cs

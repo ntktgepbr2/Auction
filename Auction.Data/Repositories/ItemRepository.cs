@@ -17,14 +17,7 @@ namespace Auction.Data.Repositories
 
         public async Task<IReadOnlyCollection<ItemLot>> GetAllUserLots(string email)
         {
-            try
-            {
-                return await this.All.Where(i => i.User.Email == email).ToListAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Couldn't retrieve entities: {ex.Message}");
-            }
+             return await this.All.Where(i => i.User.Email == email).ToListAsync();
         }
 
         public async Task UpdatePriceAsync() => await UpdateContext();

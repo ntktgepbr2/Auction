@@ -11,5 +11,6 @@ namespace Auction.Contracts.Items
         [Range(1, 99999999, ErrorMessage = "Should be between 1 and 99999999")]
         public decimal LastBid { get; set; }
         public decimal CurrentPrice { get; set; }
+        public string UserName { get; set; }
     }
 }

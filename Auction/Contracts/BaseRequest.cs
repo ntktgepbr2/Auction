@@ -4,7 +4,7 @@ namespace Auction.Contracts
 {
     public class BaseRequest
     {
-        [Required(ErrorMessage = "User name is required")]
+        [Required(ErrorMessage = "Name is required")]
         public string Name { get; set; }
     }
 }

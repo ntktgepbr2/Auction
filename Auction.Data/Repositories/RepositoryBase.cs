@@ -21,7 +21,7 @@ namespace Auction.Data.Repositories
         {
             {
                 var query = this.All.Where(x => x.Name.Contains(name, StringComparison.CurrentCultureIgnoreCase));
-                return await query.ToArrayAsync();
+                return await query.ToListAsync();
             }
         }
 
@@ -72,6 +72,7 @@ namespace Auction.Data.Repositories
             var getEntity = await GetEntity(id);
 
             _context.Remove(getEntity);
+            await _context.SaveChangesAsync();
         }
     }
 }

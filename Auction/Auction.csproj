@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.11" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.7" />
@@ -39,18 +40,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EditorConfigFiles Remove="D:\AuctionProject\Auction\Auction\.editorconfig" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="D:\AuctionProject\Auction\Auction\.editorconfig" />
     <None Include="nlog.config" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="CustomExceptionMiddleware\" />
     <Folder Include="Exceptions\" />
-    <Folder Include="Views\User\" />
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 

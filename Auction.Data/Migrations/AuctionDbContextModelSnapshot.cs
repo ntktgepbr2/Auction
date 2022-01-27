@@ -94,6 +94,11 @@ namespace Auction.Data.Migrations
 
                     b.Property<string>("Password")
                         .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Salt")
+                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("nvarchar(30)");
 
@@ -121,7 +126,8 @@ namespace Auction.Data.Migrations
                 {
                     b.HasOne("Auction.Domain.Models.User", "User")
                         .WithMany("ItemLots")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("User");
                 });

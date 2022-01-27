@@ -22,6 +22,7 @@
                         <div>
                             <input id="sendBid" type="submit" value="bid" class="btn btn-primary" asp-route-id="@Model.Id" />
                             <input type="hidden" id="modelId" name="modelId" value="@Model.Id"/>
+                            <input type="hidden" id="userName" name="userName" value="@Context.User.Identity.Name"/>
                         </div>
                     </div>
                 </div>

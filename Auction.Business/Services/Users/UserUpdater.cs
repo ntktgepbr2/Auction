@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Auction.Business.Contracts.Users;
+using Auction.Business.Services.Roles;
 using Auction.Data.Repositories;
 using Auction.Domain.Models;
 
@@ -10,31 +12,36 @@ namespace Auction.Business.Services.Users
     {
 
         private readonly IUserRepository _userRepository;
+        private readonly IRoleService _roleService;
 
-        public UserUpdater(IUserRepository userRepository)
+        public UserUpdater(IUserRepository userRepository, IRoleService roleService)
         {
             _userRepository = userRepository;
+            _roleService = roleService;
+        }
+
+        public async Task<User> Create(CreateUserCommand command)
+        {
+
+            User user = new User()
+            {
+                Id = Guid.NewGuid(),
+                Name = command.Name,
+                Email = command.Email,
+                Password = command.Password,
+                Salt = command.Salt
+            };
+            string defaultRole = "user";
+            Role role = await _roleService.GetRole(defaultRole);
+            user.Roles.Add(role);
+            await _userRepository.AddAsync(user);
+
+            return user;
         }
 
         public async Task<User> Update(UpdateUserCommand command)
         {
-            User user;
-
-            if (command.IsCreation)
-            {
-                user = new User()
-                {
-                    Id = Guid.NewGuid(),
-                    Name = command.Name,
-                    Email = command.Email,
-                    Password = command.Password,
-                };
-                await _userRepository.AddAsync(user);
-
-                return user;
-            }
-
-            user = await _userRepository.GetEntity(command.Id);
+            User user = await _userRepository.GetEntity(command.Id);
             UpdateEntity(user, command);
             await _userRepository.UpdateAsync(user);
 
